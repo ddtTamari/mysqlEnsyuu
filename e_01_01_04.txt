@@ -1,0 +1,29 @@
+ŽÀŽ{ŽÒF‹Ê—˜m”ü
+ŽÀŽ{“úF2017”N8ŒŽ7“ú
+
+	–â‡C
+	ˆÈ‰º‚ÍA‘Ðî•ñƒe[ƒuƒ‹(books)‚©‚ç‚·‚×‚Ä‚Ì—ñ‚ðŽæ‚èo‚·‚½‚ß‚ÌSQL–½—ß‚Å‚·‚ªA2“_Œë‚è‚ª‚ ‚è‚Ü‚·BŒë‚è‚ðŽw“E‚µ‚Ä‚­‚¾‚³‚¢B
+	
+
+	–â‘è	
+		select
+			+
+		from
+			books
+			:
+			
+	‰ð“š	
+		‡@ + ¨ *
+		‡A : ¨ ;
+		
+		
+	ŽÀsŒ‹‰Ê
+	MariaDB [workbook]> select
+    -> +
+    -> from
+    -> books
+    -> :
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from
+books
+:' at line 3
