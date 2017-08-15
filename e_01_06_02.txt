@@ -1,0 +1,42 @@
+実施者：玉利仁美
+実施日：2017年8月13日
+
+	問2
+	usrから東京都在住でかつ、E-mailアドレスのドメインがexamples.comのユーザー情報を取り出す
+	
+	問題	
+		SELECT
+			l_name,
+			f_name,
+			email
+		FROM
+			usr
+		WHERE
+			[①]
+		 AND
+		 	[②]
+		;
+	解答	
+		[①]prefecture = '東京都'
+		[②]email LIKE '%examples.com'
+	実行文
+	
+		SELECT									--なんの情報が欲しいのか選択させる
+			l_name,								--l_nameをとりだす
+			f_name,								--f_nameをとりだす
+			email								--emailを取り出す
+		FROM									--どこのテーブルから情報を取り出すのか選択させる
+			usr									--usrから情報をとることを宣言
+		WHERE									--条件を設定
+			prefecture = '東京都'				--東京都在住の情報を呼び出す
+		 AND									--条件を追加する
+		 	email LIKE '%examples.com'			--アドレスのドメインがexamples.comの情報をとりだす
+		;										--命令を終了させる
+		
+	実行結果
++--------+--------+------------------+
+| l_name | f_name | email            |
++--------+--------+------------------+
+| 小野   | 雄二   | ono@examples.com |
++--------+--------+------------------+
+1 row in set (0.00 sec)
