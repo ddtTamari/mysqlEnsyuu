@@ -1,0 +1,40 @@
+実施者：玉利仁美
+実施日：2017年8月13日
+
+	問4
+	社員テーブル(employee)から重複なしの役職を取り出すためのSQL命令ですが誤りを２点指摘しなさい
+
+	問題	
+		SELECT ALL
+			class,
+			depart_id
+		FROM
+			employee
+		;
+		
+
+	解答	
+		SELECT DISTINCT
+			class
+		FROM
+			employee
+		;
+	実行文
+	
+		SELECT	DISTINCT	--なんの情報が欲しいのか重複せず一列で選択させる
+			class			--役職を取り出す
+		FROM				--どこのテーブルから情報を取り出すのか選択させる
+			employee		--employeeから情報をとることを宣言
+		;					--命令を終了させる
+		
+	実行結果
++--------------+
+| class        |
++--------------+
+| 部長         |
+| 担当         |
+| 主任         |
+| アシスタント |
+| 課長         |
++--------------+
+5 rows in set (0.00 sec)
