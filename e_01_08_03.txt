@@ -1,0 +1,62 @@
+実施者：玉利仁美
+実施日：2017年8月15日
+
+	問4
+	access_logからアクセスに知事の新しい順に10件のログデータをを取得するためのSQL命令です2点誤りを指摘しなさい
+		
+	問題	
+		SELECT
+			page_id,
+			referer,
+			ip_address
+		FROM
+			access_log
+		ORDER BY
+			access_date ASC
+		LIMIT
+			10,0
+		;
+		
+	解答
+		SELECT
+			page_id,
+			referer,
+			ip_address
+		FROM
+			access_log
+		ORDER BY
+			access_date DESC
+		LIMIT
+			0,10
+		;
+	実行文
+	
+		SELECT									--なんの情報が欲しいのか選択させる
+			page_id,							--page_idを取り出す
+			referer,							--refererを取り出す
+			ip_address							--ip_addressをとりだす
+		FROM									--どこのテーブルから情報を取り出すのか選択させる
+			access_log							--access_logから情報をとることを宣言
+		 ORDER BY								--並び替えをさせる
+		 	access_date DESC					--アクセス日が新しい順に抽出
+		LIMIT									--表示させる行数を設定する
+			0,10								--1行目から10行表示させる
+			;									--命令を終了させる
+
+		
+	実行結果
++---------+---------------------------+-----------------+
+| page_id | referer                   | ip_address      |
++---------+---------------------------+-----------------+
+| C0001   | http://wings.msn.to/hamu/ | 192.168.165.19  |
+| C0005   | http://wings.msn.to/neko/ | 192.168.211.109 |
+| C0004   | http://wings.msn.to/kame/ | 192.168.206.132 |
+| A0001   | http://wings.msn.to/hamu/ | 192.168.16.198  |
+| C0003   | http://wings.msn.to/saru/ | 192.168.209.236 |
+| A0001   | http://wings.msn.to/hamu/ | 192.168.195.112 |
+| C0002   | http://wings.msn.to/neko/ | 192.168.30.206  |
+| A0001   | http://wings.msn.to/hamu/ | 192.168.16.115  |
+| C0001   | http://wings.msn.to/hamu/ | 192.168.32.14   |
+| A0001   | http://wings.msn.to/hamu/ | 192.168.13.16   |
++---------+---------------------------+-----------------+
+10 rows in set (0.00 sec)
