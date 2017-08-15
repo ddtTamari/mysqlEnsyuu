@@ -1,0 +1,57 @@
+実施者：玉利仁美
+実施日：2017年8月13日
+
+	問3
+	usrから東京都以外に住んでいる人の情報を取り出す。l_name,f_name,emailを取り出す
+	
+	問題	
+		SELECT 
+			f_name,
+			l_name,
+			email
+		FROM
+			[①]
+		WHERE
+			[②]
+		;
+		
+
+	解答	
+		[①] usr
+		[②] pregecture <>'東京都'
+	実行文
+	
+		SELECT									--なんの情報が欲しいのか選択させる
+			f_name,								--f_nameを取り出す
+			l_name,								--l_nameを取り出す
+			email								--emailを取り出す
+		FROM									--どこのテーブルから情報を取り出すのか選択させる
+			usr									--usrから情報をとることを宣言
+		WHERE									--条件を設定
+			prefecture <>'東京都'				--東京都以外のデータを呼び出す
+		;										--命令を終了させる
+		
+	実行結果
++--------+--------+----------------------+
+| f_name | l_name | email                |
++--------+--------+----------------------+
+| 一郎   | 井上   | inoue@wings.msn.to   |
+| 幸一   | 上原   | uehara@wings.msn.to  |
+| 聡     | 江本   | emoto@wings.msn.to   |
+| 泰治   | 河合   | kawai@wings.msn.to   |
+| 一樹   | 木下   | kino@wings.msn.to    |
+| 守     | 久保田 | kubota@wings.msn.to  |
+| 毅     | 児玉   | kodama@wings.msn.to  |
+| 駿     | 坂口   | saka@examples.com    |
+| 一郎   | 井上   | shimi@wings.msn.to   |
+| 亜由美 | 矢口   | yaguchi@wings.msn.to |
+| 茉莉   | 有木   | yuki@wings.msn.to    |
+| 遥     | 吉岡   | yoshi@examples.com   |
+| 博美   | 松本   | matsu@wings.msn.to   |
+| 沙恵   | 南     | minami@wings.msn.to  |
+| 佐知子 | 村井   | murai@wings.msn.to   |
+| 絵里   | 森本   | morimo@examples.com  |
+| 文子   | 西島   | nishi@wings.msn.to   |
+| 裕子   | 根岸   | negi@wings.msn.to    |
++--------+--------+----------------------+
+18 rows in set (0.00 sec)
