@@ -1,0 +1,41 @@
+実施者：玉利仁美
+実施日：2017年8月17日
+
+	問3
+	author_booksで著者ごとの書籍数を求め、登録数が3冊以上の情報だけを取り出す
+				
+	問題	
+		
+		
+	解答
+		SELECT
+			author_id,
+			COUNT(isbn)
+		FROM
+			author_books
+		GROUP BY
+			author_id
+		HAVING
+			COUNT(isbn) >= 3
+		;
+	実行文
+	
+		SELECT									--なんの情報が欲しいのか選択させる
+			author_id,							--author_idを取り出す
+			COUNT(isbn)							--書籍数をカウントしたものを取り出す
+		FROM									--どこのテーブルから情報を取り出すのか選択させる
+			author_books						--author_booksから情報をとることを宣言
+		GROUP BY								--グループを設定する
+			author_id							--著者ごとに書籍をカウントするようグループ化させる
+		HAVING									--グルーピング結果に条件を付ける
+			AVG(age) BETWEEN 35 AND 49			--書籍数が3冊以上で絞る
+		;										--命令を終了させる
+
+		
+	実行結果
++-----------+-------------+
+| author_id | COUNT(isbn) |
++-----------+-------------+
+| Y0002     |           4 |
++-----------+-------------+
+1 row in set (0.00 sec)
