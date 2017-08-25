@@ -1,0 +1,62 @@
+実施者：玉利仁美
+実施日：2017年8月23日
+
+	問3
+	access_logからリンク元ごとのアクセス数を求め、10件未満をc、10件以上50件未満をB、50件以上をAとする
+	ランク列を取得してみましょう。データはアクセス数が3件以上のものを多い順に並べるものとします。
+							
+	問題	
+	
+		
+	解答
+		SELECT
+			referer,
+			count(*)  AS カウント数,
+			CASE
+				WHEN count(*) < 10 THEN 'C'
+				WHEN count(*) < 50 THEN 'B'
+				ELSE 'A'
+			END AS ランク
+		FROM
+			access_log
+		GROUP BY
+			referer
+		HAVING
+			count(*) >2
+		ORDER BY
+			 count(*)  DESC
+		;
+		
+	実行文
+	
+	SELECT												-- どの情報を出すか宣言する
+		referer,										--アクセス数を取り出す
+		count(*) AS カウント数,							-- アクセス数を取り出す
+		CASE											-- 取り出す列に条件を追加する
+			WHEN count(*)  < 10 THEN 'C'				-- 10未満ならCと表示
+			WHEN count(*) < 50 THEN 'B'					-- 50未満ならBと表示
+			else 'A'									-- 上記以外ならAと表示
+		END AS ランク, 									-- 条件を終了し列名をランクとして取り出す
+	FROM												-- どこのテーブルから取り出すか
+		access_log										-- access_logからデータを取り出す
+	GROUP BY											-- 何でグループ分けするかを宣言
+		referer											-- refererでグループ化させる
+	HAVING												--グルーピングに対して条件を追加する
+		count(*) >2										--アクセス数が3以上のものでグルーピング
+	ORDER BY											--並び替えの条件を定義する
+		count(*) DESC									--アクセス数が多い順で並び替えする
+	;													-- 命令を終了させる
+		
+		
+	実行結果
++---------------------------+------------+--------+
+| referer                   | カウント数 | ランク |
++---------------------------+------------+--------+
+| http://wings.msn.to/hamu/ |        100 | A      |
+| http://wings.msn.to/neko/ |         11 | B      |
+| http://wings.msn.to/saru/ |          4 | C      |
+| http://wings.msn.to/kame/ |          3 | C      |
+| http://wings.msn.to/inu/  |          3 | C      |
+| http://wings.msn.to/tori/ |          3 | C      |
++---------------------------+------------+--------+
+6 rows in set (0.00 sec)
