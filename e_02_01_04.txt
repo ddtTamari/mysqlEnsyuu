@@ -1,0 +1,62 @@
+実施者：玉利仁美
+実施日：2017年8月29日
+
+	問4
+	rentalとusrからそれぞれのユーザについて、現在何冊を貸し出しているかを、貸し出し数の多い順に取得してみましょう
+	取得列はユーザの氏名、貸し出し数とします。貸し出し数0のユーザは出力する必要はありません。
+								
+	問題	
+		
+		
+	解答
+		SELECT
+			re.user_id,
+			COUNT(re.user_id)
+		FROM
+			usr AS us
+		INNER JOIN
+			rental AS re
+		ON
+			us.user_id = re.user_id
+		WHERE
+			re.returned != 1
+		GROUP BY
+			re.user_id
+		ORDER BY
+			COUNT(re.user_id) DESC
+		;
+		
+	実行文
+	
+	SELECT												-- どの情報を出すか宣言する
+		re.user_id,										-- ユーザIDを表示させる
+		COUNT(re.user_id)								-- 貸し出し数の合計を取り出す
+	FROM												-- どこのテーブルから取り出すか
+		usr AS us										-- usrから呼び出すデータをusとして取り出す
+	INNER JOIN											-- 結合先を指定する
+		rental AS re									-- rentalからよびだすデータをreとして取り出す
+	ON													-- 結合するキー同士を指定する
+		us.user_id = re.user_id							-- 二つのテーブルのユーザIDを結合する
+	WHERE												-- 特定条件の行だけ取り出す
+		re.returned != 1								-- 返却されていないものを取り出す
+	GROUP BY											-- どの列でグループ化するか設定する
+		re.user_id										-- user_id重複しないようまとめて表示
+	ORDER BY											-- 並び替えの条件を設定する
+		COUNT(re.user_id) DESC							-- 貸し出し数で降順する
+	;													-- 命令を終了させる
+		
+		
+	実行結果
++---------+-------------------+
+| user_id | COUNT(re.user_id) |
++---------+-------------------+
+| B200504 |                 2 |
+| A200405 |                 2 |
+| B200503 |                 1 |
+| B200505 |                 1 |
+| B200403 |                 1 |
+| A200402 |                 1 |
+| B200405 |                 1 |
+| B200404 |                 1 |
++---------+-------------------+
+8 rows in set (0.00 sec)
