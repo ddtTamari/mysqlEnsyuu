@@ -1,0 +1,54 @@
+実施者：玉利仁美
+実施日：2017年8月29日
+
+	問3
+	shopとsalesから2012年の全売上高を売上高の低い順に出力してみましょう。
+							
+	問題	
+		
+		
+	解答
+		SELECT
+			sh.s_name,
+			SUM(sl.s_value)
+		FROM
+			shop AS sh
+		INNER JOIN
+			sales AS sl
+		ON
+			sh.s_id = sl.s_id
+		GROUP BY
+			sh.s_name
+		ORDER BY
+			s_value ASC
+		;
+		
+	実行文
+	
+	SELECT												-- どの情報を出すか宣言する
+		sh.s_name,										-- 店舗名を表示させる
+		SUM(sl.s_value)									-- 売り上げの合計を取り出す
+	FROM												-- どこのテーブルから取り出すか
+		shop AS sh										-- shopから呼び出すデータをshとして取り出す
+	INNER JOIN											-- 結合先を指定する
+		sales AS sl										-- salesからよびだすデータをslとして取り出す
+	ON													-- 結合するキー同士を指定する
+		sh.s_id = sl.s_id								-- 二つのテーブルの店舗IDを結合する
+	GROUP BY											-- どの列でグループ化するか設定する
+		sh.s_name										-- 同店舗をまとめて表示
+	ORDER BY											-- 並び替えの条件を設定する
+		s_value DESC									-- 売上高で昇順する
+	;													-- 命令を終了させる
+		
+		
+	実行結果
++--------------+-----------------+
+| s_name       | SUM(sl.s_value) |
++--------------+-----------------+
+| 東桜町店     |           19836 |
+| 北花町東店   |           20580 |
+| 北花町駅前店 |           21376 |
+| 三吉町店     |           21929 |
+| 三吉町南店   |           12032 |
++--------------+-----------------+
+5 rows in set (0.00 sec)
