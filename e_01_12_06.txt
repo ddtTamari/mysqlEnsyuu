@@ -29,30 +29,29 @@
 		
 	実行文
 	
-		SELECT									--なんの情報が欲しいのか選択させる
-			referer,							--URLを取り出す
-			COUNT(*)							--条件にあうアクセス数をカウントし取り出す
-		FROM									--どこのテーブルから情報を取り出すのか選択させる
-			access_log							--access_logから情報をとることを宣言
-		WHERE									--条件を設定
-			access_date >= 2013-01-01			--2013/01/01以降のアクセス日時を抽出する
-		GROUP BY								--グループを設定する
-			referer								--URLでグループ化させる
-		HAVING									--グルーピング結果に条件を付ける
-			COUNT(*)< 5							--アクセス数が5未満で絞る
-		ORDER BY								--並び変えを設定する
-			COUNT(*) DESC						--アクセス数で降順する
-		;										--命令を終了させる
+		SELECT									-- なんの情報が欲しいのか選択させる
+			referer,							-- URLを取り出す
+			COUNT(*)							-- 条件にあうアクセス数をカウントし取り出す
+		FROM									-- どこのテーブルから情報を取り出すのか選択させる
+			access_log							-- access_logから情報をとることを宣言
+		WHERE									-- 条件を設定
+			access_date >= '2013-01-01'			-- 2013/01/01以降のアクセス日時を抽出する
+		GROUP BY								-- グループを設定する
+			referer								-- URLでグループ化させる
+		HAVING									-- グルーピング結果に条件を付ける
+			COUNT(*)< 5							-- アクセス数が5未満で絞る
+		ORDER BY								-- 並び変えを設定する
+			COUNT(*) DESC						-- アクセス数で降順する
+		;										-- 命令を終了させる
 
 		
 	実行結果
 +---------------------------+----------+
 | referer                   | COUNT(*) |
 +---------------------------+----------+
-| http://wings.msn.to/saru/ |        4 |
-| http://wings.msn.to/tori/ |        3 |
-| http://wings.msn.to/kame/ |        3 |
-| http://wings.msn.to/inu/  |        3 |
-| NULL                      |        2 |
+| http://wings.msn.to/neko/ |        3 |
+| http://wings.msn.to/kame/ |        1 |
+| http://wings.msn.to/tori/ |        1 |
+| http://wings.msn.to/saru/ |        1 |
 +---------------------------+----------+
-5 rows in set, 1 warning (0.00 sec)
+4 rows in set (0.01 sec)
