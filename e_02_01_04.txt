@@ -22,6 +22,8 @@
 			re.returned != 1
 		GROUP BY
 			re.user_id
+		HAVING
+			COUNT(re.user_id) > 0
 		ORDER BY
 			COUNT(re.user_id) DESC
 		;
@@ -41,6 +43,8 @@
 		re.returned != 1								-- 返却されていないものを取り出す
 	GROUP BY											-- どの列でグループ化するか設定する
 		re.user_id										-- user_id重複しないようまとめて表示
+	HAVING												-- グルーピングに条件を追加する
+		COUNT(re.user_id) > 0							-- 一度以上借りた人しか呼び出さない
 	ORDER BY											-- 並び替えの条件を設定する
 		COUNT(re.user_id) DESC							-- 貸し出し数で降順する
 	;													-- 命令を終了させる
