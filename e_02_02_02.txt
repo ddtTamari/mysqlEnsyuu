@@ -1,0 +1,48 @@
+実施者：玉利仁美
+実施日：2017年9月1日
+
+	問2
+	employeeとdepartを結合し、所属社員が一人もいない「幽霊」部署を洗い出してみましょう。
+									
+	問題	
+		SELECT
+			d.depart_id,
+			d.depart_name
+		FROM
+			depart AS d
+		[①]
+			employee AS e
+		ON
+			[②]
+		WHERE
+			[③]
+		;
+		
+	解答
+		[①]LEFT JOIN
+		[②]e.depart_id = d.depart_id
+		[③]e.depart_id IS NULL
+		
+	実行文
+	
+	SELECT												-- どの情報を出すか宣言する
+		d.depart_id,									-- 所属IDを表示させる
+		d.depart_name									-- 所属を表示させる
+	FROM												-- どこのテーブルから取り出すか
+		depart AS d										-- departから呼び出すデータをdとして取り出す
+	LEFT JOIN											-- 左外部結合先を指定する
+		employee AS e									-- employeeからよびだすデータをeとして取り出す
+	ON													-- 結合するキー同士を指定する
+		e.depart_id = d.depart_id						-- 二つのテーブルの所属IDを結合する
+	WHERE												-- 取り出すものに条件を追加
+		e.depart_id IS NULL								-- idが一つも入っていないデータを取り出す
+	;													-- 命令を終了させる
+		
+		
+	実行結果
++-----------+-------------+
+| depart_id | depart_name |
++-----------+-------------+
+| E02       | 第二営業部  |
++-----------+-------------+
+1 row in set (0.00 sec)
