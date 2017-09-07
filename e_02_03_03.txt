@@ -1,0 +1,72 @@
+実施者：玉利仁美
+実施日：2017年9月7日
+
+	問3
+	employeeからそれぞれの社員氏名と上司氏名を社員コードについて昇順に取り出してみましょう。
+	なお取り出す列には、「社員氏名」「上司氏名」とし、上司がいない社員についても情報は取り出すことにする
+										
+	問題	
+		
+	解答
+		
+		SELECT
+			CONCAT(employeeName.l_name,employeeName.f_name) AS 社員氏名,
+			CONCAT(supervisor.l_name,supervisor.f_name) AS 上司氏名
+		FROM
+			employee AS employeeName
+		LEFT JOIN
+			employee AS supervisor
+		ON
+			employeeName.b_id = supervisor.s_id
+		ORDER BY
+			employeeName.s_id ASC
+		;
+		
+	実行文
+	
+	SELECT																-- どの情報を出すか宣言する
+		CONCAT(employeeName.l_name,employeeName.f_name) AS 社員氏名,	-- 社員名をフルネームで表示させる
+		CONCAT(supervisor.l_name,supervisor.f_name) AS 上司氏名			-- 上司氏名をフルネームで表示させる
+	FROM																-- どこのテーブルから取り出すか
+		employee AS employeeName										-- menuから呼び出すデータをemployeeNameとして取り出す
+	LEFT JOIN															-- 左外部結合先を指定する
+		employee AS supervisor											-- 同じemployeeからよびだすデータをsupervisorとして取り出す
+	ON																	-- 結合するキー同士を指定する
+		employeeName.b_id = supervisor.s_id								-- 社員の上司IDを上司の社員IDで結合する
+	ORDER BY 															-- 並び替えの条件を追加
+		employeeName.s_id ASC											-- 社員IDで昇順する
+	;																	-- 命令を終了させる
+		
+		
+	実行結果
++------------+------------+
+| 社員氏名   | 上司氏名   |
++------------+------------+
+| 相沢聡     | NULL       |
+| 大門一郎   | 相沢聡     |
+| 藤井雄太   | 妹尾春樹   |
+| 藤岡幸太郎 | 藤井雄太   |
+| 速水和幸   | NULL       |
+| 葉山俊輔   | 藤岡幸太郎 |
+| 川口裕子   | NULL       |
+| 加藤昭雄   | NULL       |
+| 神田佐知子 | 神田佐知子 |
+| 木村一郎   | 田中真由子 |
+| 中澤康代   | 戸川よしみ |
+| 西雄一     | NULL       |
+| 新渡戸康治 | NULL       |
+| 野上利江   | 戸川よしみ |
+| 佐藤智子   | NULL       |
+| 妹尾春樹   | 寺岡陽一   |
+| 清水春子   | 清水春子   |
+| 田中真由子 | 山田奈美   |
+| 田辺正一   | 葉山俊輔   |
+| 寺岡陽一   | 速水和幸   |
+| 近田晃子   | 相沢聡     |
+| 遠山真一   | 上田一也   |
+| 戸川よしみ | 津村知美   |
+| 津村知美   | 近田晃子   |
+| 上田一也   | NULL       |
+| 山田奈美   | 佐藤智子   |
++------------+------------+
+26 rows in set (0.00 sec)
