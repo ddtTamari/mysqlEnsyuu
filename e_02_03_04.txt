@@ -1,0 +1,86 @@
+実施者：玉利仁美
+実施日：2017年9月7日
+
+	問4
+	contentsから現在のコンテンツコードと前のコンテンツコードを現在のコンテンツコードについて昇順で取り出すためのSQL命令の間違えを2つ指摘しなさい。
+										
+	問題	
+		SELECT
+			cp.c_id AS 前のページ,
+			cn.c_id AS 現在のページ
+		FROM
+			contents AS cp
+		OUTER JOIN
+			contents AS cn
+		ON
+			cp.next_id <> cn.c_id
+		ORDER BY
+			cn.c_id ASC
+		;
+		
+	解答
+		
+		SELECT
+			cp.c_id AS 前のページ,
+			cn.c_id AS 現在のページ
+		FROM
+			contents AS cp
+		INNER JOIN
+			contents AS cn
+		ON
+			cp.next_id = cn.c_id
+		ORDER BY
+			cn.c_id ASC
+		;
+		
+	実行文
+	
+	SELECT																	-- どの情報を出すか宣言する
+		cp.c_id AS 前のページ,												-- 前のページのIDを表示させる
+		cn.c_id AS 現在のページ												-- 現在のページIDを表示させる
+	FROM																	-- どこのテーブルから取り出すか
+		contents AS cp														-- contentsから呼び出すデータをcpとして取り出す
+	INNER JOIN																-- 内部結合先を指定する
+		contents AS cnr														-- 同じcontentsからよびだすデータをcnとして取り出す
+	ON																		-- 結合するキー同士を指定する
+		cp.next_id = cn.c_id												-- 次のIDと現在のIDで結合する
+	ORDER BY 																-- 並び替えの条件を追加
+		cn.c_id ASC															-- 現在のIDで昇順する
+	;																		-- 命令を終了させる
+		
+		
+	実行結果
++------------+--------------+
+| 前のページ | 現在のページ |
++------------+--------------+
+| A001       | A011         |
+| A011       | A012         |
+| A012       | A013         |
+| A013       | A014         |
+| A014       | A015         |
+| A015       | A016         |
+| A016       | A017         |
+| A017       | A021         |
+| A021       | A022         |
+| A022       | A023         |
+| A023       | A024         |
+| A024       | A025         |
+| A025       | A026         |
+| A026       | A027         |
+| A027       | A028         |
+| A028       | A029         |
+| A029       | A031         |
+| A031       | A032         |
+| A032       | A033         |
+| A033       | A034         |
+| A034       | A035         |
+| A035       | A036         |
+| A036       | A037         |
+| A037       | A041         |
+| A041       | A042         |
+| A042       | A043         |
+| A043       | A044         |
+| A044       | A045         |
+| A045       | A046         |
++------------+--------------+
+29 rows in set (0.00 sec)
