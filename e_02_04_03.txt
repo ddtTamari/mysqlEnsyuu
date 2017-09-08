@@ -1,0 +1,85 @@
+実施者：玉利仁美
+実施日：2017年9月8日
+
+	問3
+	order_mainとorder_desc、usrとproductを結合し、未納の注文については、発注日注文コード商品コード昇順に注文情報を出力してみましょう。
+	出力名の別名は、発注日、注文コード、利用者氏名、商品名、商品単価、購入数とします
+										
+	問題	
+		
+	解答
+		SELECT
+			om.order_date AS 発注日,
+			om.po_id AS 注文コード,
+			CONCAT(u.l_name,u.f_name) AS 利用者氏名,
+			p.p_name AS 商品名,
+			p.price AS 商品単価,
+			od.quantity AS 購入数
+		FROM
+			(
+				(
+					order_main AS om
+				INNER JOIN
+					order_desc AS od
+				ON
+					om.po_id = od.po_id
+				)
+			INNER JOIN
+				usr AS u
+			ON
+				om.user_id = u.user_id
+			)
+		INNER JOIN
+			product AS p
+		ON
+			od.p_id = p.p_id
+		WHERE
+			om.delivery_date IS NULL
+		ORDER BY
+			od.p_id ASC
+		;
+			
+		
+		
+	実行文
+	
+	SELECT                                                  -- どの情報を出すか宣言する
+		om.order_date AS 発注日,                            -- 問題文の指定の通り発注日を表示させる
+		om.po_id AS 注文コード,                             -- 問題文の指定の通り注文コードを表示させる
+		CONCAT(u.l_name,u.f_name) AS 利用者氏名,            -- 問題文の指定の通り利用者氏名を表示させる
+		p.p_name AS 商品名,                                 -- 問題文の指定の通り商品名を表示させる
+		p.price AS 商品単価,                                -- 問題文の指定の通り商品単価を表示させる
+		od.quantity AS 購入数                               -- 問題文の指定の通り購入数を表示させる
+	FROM                                                    -- どこのテーブルから取り出すか
+		(                                                   -- 二つ目の結合を表すカッコ
+				(                                           -- 一つ目の結合を表すカッコ
+					order_main AS om                        -- order_mainからデータをomとして取り出す
+				INNER JOIN                                  -- 内部結合を行い二つのテーブルの同じキーを結合して取り出す
+					order_desc AS od                        -- order_descからデータをodとして取り出す
+				ON                                          -- 結合するキーを指定する
+					om.po_id = od.po_id                     -- 注文番号に対して結合を行う
+				)                                           -- 一つ目の結合の終わりを表すカッコ
+			INNER JOIN                                      -- 内部結合を行い二つのテーブルの同じキーを結合して取り出す
+				usr AS u                                    -- usrからデータをuとして取り出す
+			ON                                              -- 結合するキーを結合を行う
+				om.user_id = u.user_id                      -- 利用者IDに対して結合を行う
+		)                                                   -- 二つ目の結合の終了を表すカッコ
+	INNER JOIN                                              -- 内部結合を行い二つのテーブルの同じキーを結合して取り出す
+		product AS p                                        -- productからデータをpとして取り出す
+	ON                                                      -- 結合するキーを指定する
+		od.p_id = p.p_id                                    -- 商品コードに対して結合を行う
+	WHERE                                                   -- 取り出すデータに条件を付ける
+		om.delivery_date IS NULL                            -- 配達日が空のデータが未納注文なのでそのデータを取り出す
+	ORDER BY                                                -- 並び替えの条件を追加する
+		od.p_id ASC                                         -- 商品コードに対して昇順する
+		;                                                   -- 命令を終了させる
+		
+		
+	実行結果
++------------+------------+------------+--------------+----------+--------+
+| 発注日     | 注文コード | 利用者氏名 | 商品名       | 商品単価 | 購入数 |
++------------+------------+------------+--------------+----------+--------+
+| 2012-12-25 |         20 | 西島文子   | 電卓         |      600 |     10 |
+| 2012-12-22 |         19 | 森本絵里   | 赤ボールペン |      100 |    100 |
++------------+------------+------------+--------------+----------+--------+
+2 rows in set (0.00 sec)
