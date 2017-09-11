@@ -1,0 +1,56 @@
+実施者：玉利仁美
+実施日：2017年9月11日
+
+	問2
+	departからemployeeで使われていない部署コード部署名を取り出してみましょう。
+										
+	問題	
+		
+		SELECT
+			depart_id,
+			depart_name
+		FROM
+			[①]
+		WHERE
+			[②]
+			(
+			SELECT
+				*
+			FROM
+				employee
+			WHERE
+				[③]
+			)
+		;
+	解答
+		[①]depart
+		[②]NOT EXISTS
+		[③]employee.depart_id = depart.depart_id
+		
+	実行文
+	
+	SELECT                                            -- どの情報を出すか宣言する
+		depart_id,                                    -- 問題文の指定の通り部署IDを表示させる
+		depart_name                                   -- 問題文の指定の通り部署名を表示させる
+	FROM                                              -- どこのテーブルから取り出すか
+		depart                                        -- departテーブルから取り出す
+	WHERE                                             -- 取り出すデータに条件を付ける
+		NOT EXISTS                                    -- 合致する情報が存在しない行を取り出す
+		(                                             -- 条件のためのカッコ
+		SELECT                                        -- どの情報を取り出すか宣言する
+			*                                         -- すべての列を取り出す
+		FROM                                          -- どこのテーブルから取り出すか
+			employee                                  -- employeeテーブルから情報を取り出す
+		WHERE                                         -- 取り出す列に条件を付ける
+			employee.depart_id = depart.depart_id     -- 二つのテーブルの部署IDが合致する列を取り出す
+		)                                             -- 条件を終了したのを示すカッコ
+		;                                             -- 命令を終了させる
+		
+		
+	実行結果
++-----------+-------------+
+| depart_id | depart_name |
++-----------+-------------+
+| E02       | 第二営業部  |
++-----------+-------------+
+1 row in set (0.00 sec)
