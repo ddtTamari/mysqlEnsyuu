@@ -1,0 +1,68 @@
+実施者：玉利仁美
+実施日：2017年9月12日
+
+	問3
+	shopとsalesから2012年12月の売り上げ高が店舗売上平均(12月)を下回っている店舗名とその売り上げ高を上げてみましょう
+											
+	問題	
+		
+		
+	解答
+		
+		SELECT
+			s_name,
+			sales.s_value
+		FROM
+			shop
+		INNER JOIN
+			sales
+		ON
+			shop.s_id = sales.s_id
+		WHERE
+			sales.s_date = '2012-12' 
+			AND
+			sales.s_value <
+			(
+				SELECT
+					AVG(s_value)
+				FROM
+					sales
+				WHERE
+					s_date = '2012-12'
+			)
+		;
+		
+	実行文
+	
+	SELECT                                            -- どの情報を出すか宣言する
+		s_name,                                       -- 問題文の指定の通り部署IDを表示させる
+		sales.s_value                                 -- 問題文の指定の通り部署名を表示させる
+	FROM                                              -- どこのテーブルから取り出すか
+		shop                                          -- departテーブルから取り出す
+	INNER JOIN                                        -- 内部結合を行う
+			sales                                     -- salesテーブルと結合を行う
+		ON                                            -- 結合するキーを指定する
+			shop.s_id = sales.s_id                    -- 店舗IDで結合をする
+	WHERE                                             -- 取り出すデータに条件を付ける
+		sales.s_date = '2012-12'                      -- 2012年12月のデータを取り出す
+		AND                                           -- 条件を追加する
+		sales.s_value <                               -- 売上高が下記条件より低いものを取り出す
+			(                                         -- 比較する条件のデータを取り出す
+			SELECT                                    -- どの情報を取り出すか宣言する
+				AVG(s_value)                          -- 売上高の平均を取り出す
+			FROM                                      -- どこのテーブルから取り出すか指定する
+				sales                                 -- salesテーブルから情報を取り出す
+			WHERE                                     -- 条件を追加する
+				s_date = '2012-12'                    -- 2012年12月の日のものを取り出す
+				)                                     -- 条件を終了したのを示すカッコ
+		;                                             -- 命令を終了させる
+		
+		
+	実行結果
++------------+---------+
+| s_name     | s_value |
++------------+---------+
+| 東桜町店   |    9861 |
+| 北花町東店 |   10456 |
++------------+---------+
+2 rows in set (0.00 sec)
