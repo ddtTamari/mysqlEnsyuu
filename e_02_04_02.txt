@@ -25,32 +25,32 @@
 		;
 		
 	解答
-		[①]cn.c_title AS 前コンテンツ名,
+		[①]cp.c_title AS 前コンテンツ名,
 			cc.c_title AS 現コンテンツ名,
-			cp.c_title AS 後コンテンツ名
+			cn.c_title AS 後コンテンツ名
 		[②]INNER JOIN
-		[③]cp.c_id = cc.next_id
-		[④]cc.c_id = cn.next_id
+		[③]cc.c_id = cp.next_id
+		[④]cn.c_id = cc.next_id
 		[⑤]cc.next_id ASC
 		
 	実行文
 	
 	SELECT                                              -- どの情報を出すか宣言する
-		cn.c_title AS 前コンテンツ名,                   -- 問題文の指定の通り前コンテンツ名を表示させる
+		cp.c_title AS 前コンテンツ名,                   -- 問題文の指定の通り前コンテンツ名を表示させる
 		cc.c_title AS 現コンテンツ名,                   -- 問題文の指定の通り現コンテンツ名を表示させる
-		cp.c_title AS 後コンテンツ名                    -- 問題文の指定の通り後コンテンツ名を表示させる
+		cn.c_title AS 後コンテンツ名                    -- 問題文の指定の通り後コンテンツ名を表示させる
 	FROM                                                -- どこのテーブルから取り出すか
 		(                                               -- 一つ目の結合の塊をくくるカッコ
 			contents AS cp                              -- contentsから呼び出すデータをcpとして取り出す
 		INNER JOIN                                      -- 内部結合先を指定する
 			contents AS cc                              -- contentsからよびだすデータをccとして取り出す
 		ON                                              -- 結合するキー同士を指定する
-			cp.c_id = cc.next_id                        -- 現IDと次IDを結合する
+			cc.c_id = cp.next_id                        -- 現IDと次IDを結合する
 		)                                               -- 一つ目の結合の終わりをくくるカッコ
 	INNER JOIN                                          -- 内部結合先を指定する
 		contents AS cn                                  -- contentsから呼び出すデータをcnとして取り出す
 	ON                                                  -- 結合するキー同士を指定する
-		cc.c_id = cn.next_id                            -- ccの現IDをcnの次IDで結合して前現後のページを結合する
+		cn.c_id = cc.next_id                            -- ccの現IDをcnの次IDで結合して前現後のページを結合する
 	ORDER BY                                            -- 並び替えの条件を追加
 		cc.next_id ASC                                  -- 現ページで昇順させる
 	;                                                   -- 命令を終了させる
