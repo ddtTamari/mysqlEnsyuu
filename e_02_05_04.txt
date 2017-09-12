@@ -1,0 +1,56 @@
+実施者：玉利仁美
+実施日：2017年9月12日
+
+	問4
+	rental上を検索し、これまでに一度も書籍の貸し出しを行ったことのないユーザの氏名をusrから取り出してみましょう
+											
+	問題	
+		
+		
+	解答
+		
+		SELECT
+			CONCAT(usr.l_name,usr.f_name) AS UserName
+		FROM
+			usr
+		WHERE
+			NOT EXISTS
+			(
+				SELECT
+					*
+				FROM
+					rental
+				WHERE
+					rental.user_id = usr.user_id
+			)
+		;
+		
+	実行文
+	
+	SELECT                                                                        -- どの情報を出すか宣言する
+		CONCAT(usr.l_name,usr.f_name) AS UserName                                 -- ユーザ氏名を取り出す
+	FROM                                                                          -- どこのテーブルから取り出す
+		usr                                                                       -- usrテーブルから取り出す
+	WHERE                                                                         -- 取り出すデータに条件を付ける
+		NOT EXISTS                                                                -- 以下の条件に一致しないものを取りだす
+			(                                                                     -- 比較する条件のデータを取り出す
+			SELECT                                                                -- どの情報を取り出すか宣言する
+				*                                                                 -- すべての情報を取り出すを取り出す
+			FROM                                                                  -- どこのテーブルから取り出すか指定する
+				rental                                                            -- rentalテーブルから情報を取り出す
+			WHERE                                                                 -- 条件を追加する
+				rental.user_id = usr.user_id                                      -- 貸し出し記録にあるユーザIDを取り出す
+				)                                                                 -- 条件を終了したのを示すカッコ
+		;                                                                         -- 命令を終了させる
+		
+		
+	実行結果
++------------+
+| UserName   |
++------------+
+| 久保田守   |
+| 児玉毅     |
+| 矢口亜由美 |
+| 村井佐知子 |
++------------+
+4 rows in set (0.00 sec)
