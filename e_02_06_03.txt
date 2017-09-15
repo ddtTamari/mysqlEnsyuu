@@ -1,0 +1,59 @@
+実施者：玉利仁美
+実施日：2017年9月15日
+
+	問3
+	usrとquestからそれぞれ千葉県に住んでいる人間だけを取り出し、結果を統合してみましょう。その際、重複データを取り除くものとし、かつ、氏名(カナ)について降順で並び替えるものとします。
+										
+	問題	
+		
+	解答
+		
+		SELECT
+			CONCAT(u.l_name,u.f_name) AS LivingInCHIBA
+		FROM
+			usr AS u
+		WHERE
+			u.prefecture = '千葉県'
+	UNION
+		SELECT
+			q.name
+		FROM
+			quest AS q
+		WHERE
+			q.prefecture = '千葉県'
+	ORDER BY
+		1 DESC
+	;
+			
+	実行文
+	
+			SELECT                                                         -- どの情報を出すか宣言する
+				CONCAT(u.l_name,u.f_name) AS LivingInCHIBA                 -- 名前を姓名併せて表示させる
+			FROM                                                           -- どこのテーブルから取り出すか
+				usr AS u                                                   -- usrテーブルから情報を取り出す
+			WHERE                                                          -- 条件を追加する
+				u.prefecture = '千葉県'                                    -- 住所が千葉県の人を取り出す
+		UNION                                                              -- 統合を行う
+			SELECT                                                         -- どの列を取り出すか指定する
+				q.name                                                     -- 名前を取り出す
+			FROM                                                           -- どこのテーブルから取り出すか指定する
+				quest AS q                                                 -- questテーブルから取り出す
+			WHERE                                                          -- 条件を追加する
+				q.prefecture = '千葉県'                                    -- 住所が千葉県の人を取り出す
+		ORDER BY                                                           -- 並び替えを行う
+			1 DESC                                                         -- 取り出した列の1行目で降順
+	;                                                                      -- 命令を終了させる
+		
+		
+	実行結果
++---------------+
+| LivingInCHIBA |
++---------------+
+| 有木守        |
+| 矢口亜由美    |
+| 村井佐知子    |
+| 根岸亜由美    |
+| 久保田守      |
+| 井上一郎      |
++---------------+
+6 rows in set (0.00 sec)
