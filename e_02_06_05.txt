@@ -1,0 +1,54 @@
+実施者：玉利仁美
+実施日：2017年9月15日
+
+	問5
+	usrとquestそれぞれに含まれるユーザー氏名を比較し、双方に含まれるデータのみを取り出す。
+										
+	問題	
+	
+	解答
+		
+		SELECT
+			CONCAT(u.l_name,u.f_name)
+		FROM
+			usr AS u
+	WHERE
+		EXISTS
+		(
+			SELECT
+				q.name
+			FROM
+				quest AS q
+			WHERE 
+			CONCAT(u.l_name,u.f_name) = q.name
+		)
+	ORDER BY	
+		1  DESC
+	;
+			
+	実行文
+	
+		SELECT                                                         -- どの情報を出すか宣言する
+			CONCAT(u.l_name,u.f_name)                                  -- 名前を表示させる
+		FROM                                                           -- どこのテーブルから取り出すか
+			usr AS u                                                   -- usrテーブルから情報を取り出す
+		WHERE                                                          -- 条件を追加する
+			EXISTS                                                     -- 条件に一致するものだけを取り出す
+			(                                                          -- 条件を始めるカッコ
+				SELECT                                                 -- どの列を取り出すか指定する
+					q.name                                             -- 名前を取り出す
+				FROM                                                   -- どこのテーブルから取り出すか指定する
+					quest AS q                                         -- questテーブルから取り出す
+				WHERE                                                  -- 条件を追加する
+					CONCAT(u.l_name,u.f_name) = q.name                 -- usrの名前とquestの名前で一致する名前を取り出す
+			)                                                          -- 条件の終了を表すカッコ
+		;                                                              -- 命令を終了させる
+		
+		
+	実行結果
++---------------------------+
+| CONCAT(u.l_name,u.f_name) |
++---------------------------+
+| 山田太郎                  |
++---------------------------+
+1 row in set (0.01 sec)
