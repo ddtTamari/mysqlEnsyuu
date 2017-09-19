@@ -22,6 +22,8 @@
 	;
 	
 	解答
+		①UNION ALLと書かれていたところを重複したデータをとらないようにと指定されているのでUNIONに修正
+		②SELECTで取り出している列をauthorのname_kanaと合わせるようにCONCATで結合しました
 		
 		SELECT
 			a.name_kana
