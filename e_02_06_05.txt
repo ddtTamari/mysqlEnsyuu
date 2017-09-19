@@ -22,8 +22,6 @@
 			WHERE 
 			CONCAT(u.l_name,u.f_name) = q.name
 		)
-	ORDER BY	
-		1  DESC
 	;
 			
 	é¿çsï∂
