@@ -16,8 +16,10 @@
 		;
 		
 	解答
+		①INSERTのみだったのでINSERT INTOに修正しました
+		②挿入する値に''がなかったのでこのままだと文字列として認識されなくなってしまうため''を各値の必要なところに追加しました
 		
-		INSERT INtO
+		INSERT INTO
 			product
 		VALUES
 		(
