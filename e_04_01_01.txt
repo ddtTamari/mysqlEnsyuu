@@ -1,0 +1,37 @@
+実施者：玉利仁美
+実施日：2017年10月1日
+
+	問1
+	authorを新規に作成してみましょう。
+	(authorテーブルを新規に制作すると既存データがあり作成できないのでテーブル名に_sampleを追加して作成しています)
+	
+	問題
+	
+		CREATE TABLE
+		[①]
+		(
+		author_id CHAR(5) [②],
+		name VARCHAR(30),
+		name_kana VARCHAR(100),
+		birth [③]
+		)
+		;
+		
+	解答
+		[①]author_sample
+		[②]NOT NULL
+		[③]DATETIME
+		
+	実行文
+		CREATE TABLE                              -- 問題文の指定の通りauthorテーブルを新規作成する
+		author_sample                             -- テーブル名を指定してテーブルを作成する
+		(                                         -- 作成するテーブルの列を設定する条件をくくるカッコ
+		author_id CHAR(5) NOT NULL,               -- 問題文の指定の通り5桁のIDを作成IDは必ずなくてはならないので空はできない
+		name VARCHAR(30),                         -- 問題文の指定の通り30文字制限で名前を入れる列
+		name_kana VARCHAR(100),                   -- 問題文の指定の通り100文字制限で名前のカナ表示を入れる列
+		birth DATETIME                            -- 問題文の指定通り生年月日を入れる列
+		)                                         -- 作成するテーブルの列を設定する条件をくくるカッコ
+		;                                         -- 命令を終了させる
+		
+		
+
