@@ -1,0 +1,44 @@
+実施者：玉利仁美
+実施日：2017年10月2日
+
+	問2
+	order_descを新規に作成してみましょう。
+	
+	問題
+		
+		[①]
+		 order_desc
+		 (
+		 po_id INT NOT NULL,
+		 p_id CHAR(10) NOT NULL,
+		 [②],
+		 [③] (po_id,p_id)
+		)
+		;
+		
+		
+	解答
+		[①]CREATE TABLE
+		[②]quantity INT NOT NULL
+		[③]PRIMARY KEY
+		
+	実行文
+		
+		CREATE TABLE                              -- 問題文指定のテーブルを作成するため宣言する
+		 order_desc                               -- order_descを制作し、列の条件を指定する
+		 (                                        -- 条件をくくるカッコ
+		 po_id INT NOT NULL,                      -- 注文番号は空ではいけないので仕様に従って数字でNull値を認めない列を生成
+		 p_id CHAR(10) NOT NULL,                  -- 商品コードは空ではいけないので仕様に従って文字列10桁まででNULLを認めない列を生成
+		 quantity INT NOT NULL,                   -- 購入数は空ではいけないので仕様に従って数字をNULL値を認めない列を生成
+		 PRIMARY KEY(po_id,p_id)                  -- 注文番号や商品コードは重複したらいけないので、重複しないようPRIMARY KEYで指定する
+		)                                         -- 条件をくくるカッコ
+		;                                         -- 命令を終了させる
+	実行結果表示命令文
+		
+		SELECT                -- どの列を表示させたいか指定する
+			*                 -- すべての列を表示させる
+		FROM                  -- どこのテーブルから列を取り出すのか
+			order_desc        -- order_descからデータを取り出す
+		;                     -- 命令を終了させる
+	実行結果
+		Empty set (0.00 sec)
