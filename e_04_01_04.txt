@@ -1,0 +1,45 @@
+実施者：玉利仁美
+実施日：2017年9月26日
+
+	問4
+	booksを新規に作成してみましょう。
+	
+	問題	
+		
+	解答
+		CREATE TABLE
+			books
+			(
+			isbn CHAR(17) NOT NULL,
+			title VARCHAR(255) NOT NULL,
+			price INT NOT NULL,
+			publish VARCHAR(30) NOT NULL,
+			publish_date DATE NOT NULL,
+			category_id CHAR(5) NOT NULL,
+			PRIMARY KEY(isbn,title)
+			)
+		;
+		
+	実行文
+		CREATE TABLE                             -- booksテーブルを生成するため宣言する
+			books                                -- 問題文の指定の
+			(                                    -- 
+			isbn CHAR(17) NOT NULL,              -- 
+			title VARCHAR(255) NOT NULL,         -- 
+			price INT NOT NULL,                  -- 
+			publish VARCHAR(30) NOT NULL,        -- 
+			publish_date DATE NOT NULL,          -- 
+			category_id CHAR(5) NOT NULL,        -- 
+			PRIMARY KEY(isbn,title)              -- 
+			)                                    -- 
+		;                                        -- 命令を終了させる
+		
+		実行結果表示命令文
+		
+		SELECT                -- どの列を表示させたいか指定する
+			*                 -- すべての列を表示させる
+		FROM                  -- どこのテーブルから列を取り出すのか
+			books             -- booksからデータを取り出す
+		;                     -- 命令を終了させる
+	実行結果
+		Empty set (0.00 sec)
