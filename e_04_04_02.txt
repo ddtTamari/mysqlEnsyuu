@@ -1,0 +1,50 @@
+実施者：玉利仁美
+実施日：2017年10月18日
+
+    問2
+    employee上社員の氏名定義をいずれも、VARCHAR(50)NULLを許可しないに変更してみましょう
+    
+    問題
+        ALTER TABLE
+          [①]
+        [②]
+           l_name VARCHAR(50) NOT NULL,
+        [③]
+        ;
+    解答
+        [①]employee
+        [②]MODIFY
+        [③]MODIFY
+            f_name VARCHAR(50) NOT NULL
+
+    実行文
+        ALTER TABLE                               -- 問題文の指定の通りに列の定義を変更したいので宣言
+          employee                                -- 問題文の指定ではemployeeテーブルを変更したいのでemployeeテーブルを指定する
+        MODIFY                                    -- 氏の列の定義の変更を行いたいので宣言
+           l_name VARCHAR(50) NOT NULL,           -- 氏を問題文の定義の通りに変更する
+        MODIFY                                    -- 名の列の定義の変更を行いたいので宣言
+           f_name VARCHAR(50) NOT NULL            -- 名の列を問題文の定義の通りに変更する
+        ;                                         -- 命令を終了させる
+
+    実行結果表示命令文
+        SHOW COLUMNS FROM employee                -- 列の定義が問題文の指定の通り変更されているか確認する
+        ;                                         -- 命令を終了させる
+    実行結果
+
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| s_id        | char(7)      | NO   | PRI |         |       |
+| l_name      | varchar(50)  | NO   |     | NULL    |       |
+| f_name      | varchar(50)  | NO   |     | NULL    |       |
+| l_name_kana | varchar(100) | YES  |     | NULL    |       |
+| f_name_kana | varchar(100) | YES  |     | NULL    |       |
+| sex         | smallint(6)  | YES  |     | NULL    |       |
+| class       | varchar(20)  | YES  |     | NULL    |       |
+| depart_id   | char(3)      | YES  |     | NULL    |       |
+| email       | varchar(255) | NO   |     | NULL    |       |
+| b_id        | char(7)      | YES  |     | NULL    |       |
+| last_update | date         | YES  |     | NULL    |       |
+| retired     | smallint(6)  | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+12 rows in set (0.01 sec)
