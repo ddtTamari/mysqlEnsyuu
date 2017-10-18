@@ -1,0 +1,41 @@
+実施者：玉利仁美
+実施日：2017年10月18日
+
+    問4
+    access_logに対して、既存のreferer列の定義を「データ型VARCHAR(200)、NULL値を許可」で置き換えるためのSQL命令ですが、2点指摘しなさい。
+    問題
+    
+    ALTER TABLE
+     access_log
+    MODIFY WITH
+     referer,VARCHAR(200),NULL
+    ;
+    
+    解答
+        ①MODIFY WITH → MODIFYに変更
+          列を変更するときは、MODIFYで宣言するため
+        ②referer , VARCHAR(200) ,NULL
+        →referer VARCHAR(200) NULL
+          変更する際は変更列の一単語ごとに','は必要ないため
+    実行文
+        ALTER TABLE                       -- 問題文の指定の通り既存テーブルの既存列の設定を変更したいため宣言
+         access_log                       -- 変更したい列があるテーブルがaccess_log上にあるため指定する
+        MODIFY                            -- 問題文の指定の通り変更したいため宣言
+         referer VARCHAR(200) NULL        -- referer列を問題文の指定の通り定義を変更する
+        ;                                 -- 命令を終了させる
+        
+   実行結果表示命令文
+   
+   SHOW COLUMNS FROM access_log   -- 変更されたか確認のためaccess_logのすべてのコラムを表示させる
+        ;                         -- 命令を終了させる
+   実行結果
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| log_id      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| page_id     | char(5)      | YES  |     | NULL    |                |
+| referer     | varchar(200) | YES  |     | NULL    |                |
+| ip_address  | char(15)     | YES  |     | NULL    |                |
+| access_date | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
