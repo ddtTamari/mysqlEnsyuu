@@ -1,0 +1,44 @@
+実施者：玉利仁美
+実施日：2017年10月18日
+
+    問3
+    booksのcategory_idの後方にsales列(INT型)を追加しましょう。
+    ※この問題からまたテキスト配布のworkbookのデータベース上で作業しています。
+    
+    問題
+    
+    解答
+    ALTER TABLE
+        books
+    ADD
+        sales INT
+    AFTER
+         category_id
+    ;
+    実行文
+    ALTER TABLE              -- 問題文の指定の通り既存テーブルに列を追加したいので宣言
+        books                -- 問題文ではbooksテーブルに追加すると記載してあるのでbooksテーブルを指定する
+    ADD                      -- 追加する列を指定するために宣言
+        sales INT            -- 問題文の指定では、salesという列とINTという型しか指定されていないのでその条件の列を追加する
+    AFTER                    -- どこに先ほど追加しようとしている列を挿入しようとしているのかを問題文の指定の位置に入れるために指定
+         category_id         -- category_idの後方にsales列を挿入したいのでcategory_idを指定する
+    ;                        -- 命令を終了させる
+    実行結果表示命令文
+    
+    SHOW COLUMNS FROM  books -- ちゃんとcategory_idの後にsales列が挿入されているか確認するためすべてのコラムを表示する
+    ;                        -- 命令を終了させる
+     実行結果
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| isbn         | char(17)     | NO   | PRI |         |       |
+| title        | varchar(255) | YES  |     | NULL    |       |
+| price        | int(11)      | YES  |     | NULL    |       |
+| publish      | varchar(30)  | YES  |     | NULL    |       |
+| publish_date | date         | YES  |     | NULL    |       |
+| category_id  | char(5)      | YES  |     | NULL    |       |
+| sales        | int(11)      | YES  |     | NULL    |       |
+| rating       | char(1)      | NO   |     | B       |       |
+| pages        | int(11)      | NO   |     | 0       |       |
++--------------+--------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
