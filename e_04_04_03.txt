@@ -1,0 +1,44 @@
+実施者：玉利仁美
+実施日：2017年10月18日
+
+    問3
+    autor上著者名の定義をVARCHAR(100デフォルト値は空文字列)に変更
+    問題
+    
+    解答
+    ALTER TABLE
+      author
+     MODIFY
+      name VARCHAR(100) DEFAULT ''
+    ;
+    実行文
+    ALTER TABLE                             -- 問題文の指定の通り変更を行いたいので宣言
+      author                                -- 問題文の指定の通りauthorテーブルの列を変更したいのでauthorテーブルを指定する
+     MODIFY                                 -- 問題文の指定の通りに列の定義を変更したいので宣言
+      name VARCHAR(100) DEFAULT ''          -- name列を問題文の指定の通り定義を変更
+    ;                                       -- 命令を終了させる
+    実行結果表示命令文
+    
+    SHOW COLUMNS FROM author                 -- 問題文の指定の通り定義を変更されたかどうか確認する
+    ;                                        -- 命令を終了させる
+     実行結果
+     前：
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| author_id | char(5)      | NO   | PRI |         |       |
+| name      | varchar(30)  | YES  |     | NULL    |       |
+| name_kana | varchar(100) | YES  |     | NULL    |       |
+| birth     | date         | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+     後：
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| author_id | char(5)      | NO   | PRI |         |       |
+| name      | varchar(100) | YES  |     |         |       |
+| name_kana | varchar(100) | YES  |     | NULL    |       |
+| birth     | date         | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
