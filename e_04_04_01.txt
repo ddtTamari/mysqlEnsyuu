@@ -1,0 +1,57 @@
+実施者：玉利仁美
+実施日：2017年10月18日
+
+    問1
+    books上、publish列の定義を「VARCHAR(100),NULLを許可」で変更してみましょう
+    
+    問題
+        [①]
+           books
+        MODIFY
+           [②]
+        ;
+    解答
+        [①]ALTER TABLE
+        [②]publish VARCHAR(100) NULL
+
+    実行文
+        ALTER TABLE                      -- 問題文の指定の通り既存テーブルの既存列を変更したいので宣言
+           books                         -- 問題文ではbooksテーブルの列の定義を変更したいのでbooksテーブルを指定
+        MODIFY                           -- 既存列を問題文の通り変更すするため宣言
+           publish VARCHAR(100) NULL     -- 問題文の指定の通りpublish列を100桁の文字列でNULL値を許せるよう定義を変更する
+        ;                                -- 命令を終了させる
+
+    実行結果表示命令文
+        SHOW COLUMNS FROM books          -- 定義が更新されているかどうかbooksのコラムをすべて表示させる
+        ;                                -- 命令を終了させる
+    実行結果
+    前：
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| isbn         | char(17)     | NO   | PRI |         |       |
+| title        | varchar(255) | YES  |     | NULL    |       |
+| price        | int(11)      | YES  |     | NULL    |       |
+| publish      | varchar(30)  | YES  |     | NULL    |       |
+| publish_date | date         | YES  |     | NULL    |       |
+| category_id  | char(5)      | YES  |     | NULL    |       |
+| sales        | int(11)      | YES  |     | NULL    |       |
+| rating       | char(1)      | NO   |     | B       |       |
+| pages        | int(11)      | NO   |     | 0       |       |
++--------------+--------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+    後
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| isbn         | char(17)     | NO   | PRI |         |       |
+| title        | varchar(255) | YES  |     | NULL    |       |
+| price        | int(11)      | YES  |     | NULL    |       |
+| publish      | varchar(100) | YES  |     | NULL    |       |
+| publish_date | date         | YES  |     | NULL    |       |
+| category_id  | char(5)      | YES  |     | NULL    |       |
+| sales        | int(11)      | YES  |     | NULL    |       |
+| rating       | char(1)      | NO   |     | B       |       |
+| pages        | int(11)      | NO   |     | 0       |       |
++--------------+--------------+------+-----+---------+-------+
+9 rows in set (0.02 sec)
