@@ -1,0 +1,57 @@
+実施者：玉利仁美
+実施日：2017年10月18日
+
+    問4
+    usrのf_name_kana列の後方に
+    ・sex列(VARCHAR(5)型、デフォルトは男)
+    ・job列(VARCHAR(30)型)
+    を追加する
+    
+    問題
+    
+    解答
+    ALTER TABLE
+         usr
+    ADD
+        sex VARCHAR(5) DEFAULT '男' 
+    AFTER
+        f_name_kana,
+    ADD
+        job VARCHAR(30)
+    AFTER
+        sex
+    ;
+    実行文
+       ALTER TABLE                           -- 問題文で2つ列を追加しなければならないので既存テーブルを編集するために宣言
+         usr                                 -- usrのテーブルに2列入れたいので指定する
+    ADD                                      -- 追加しなければならない列の一つ目の列を追加する
+        sex VARCHAR(5) DEFAULT '男'          -- sex列を問題文の指定の通り文字列5桁でデフォルトを男で生成
+    AFTER                                    -- sex列を挿入する位置を指定するためAFTERを宣言
+        f_name_kana,                         -- 問題文の指定の通りf_name_kana列の後ろにsex列を挿入
+    ADD                                      -- 追加しなければならない列の二つ目の列を追加する
+        job VARCHAR(30)                      -- 問題文の指定の通りjob列を文字列30桁で生成
+    AFTER                                    -- 問題文の指定の通り二つの列をf_name_kanaの後ろに挿入するために宣言
+        sex                                  -- f_name_kanaの後ろにはすでにsex列があるのでその後ろに挿入させたいのでsex列の後ろに挿入する
+    ;                                        -- 命令を終了させる
+    実行結果表示命令文
+    
+    SHOW COLUMNS FROM usr    -- 既定の位置に列が挿入されているか確認するためにusrのコラムをすべて表示させる
+    ;                        -- 命令を終了させる
+     実行結果
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| user_id     | char(7)      | NO   | PRI |         |       |
+| l_name      | varchar(20)  | YES  |     | NULL    |       |
+| f_name      | varchar(20)  | YES  |     | NULL    |       |
+| l_name_kana | varchar(100) | YES  |     | NULL    |       |
+| f_name_kana | varchar(100) | YES  |     | NULL    |       |
+| sex         | varchar(5)   | YES  |     | 男      |       |
+| job         | varchar(30)  | YES  |     | NULL    |       |
+| prefecture  | varchar(15)  | YES  |     | NULL    |       |
+| city        | varchar(20)  | YES  |     | NULL    |       |
+| o_address   | varchar(100) | YES  |     | NULL    |       |
+| tel         | varchar(20)  | YES  |     | NULL    |       |
+| email       | varchar(255) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+12 rows in set (0.02 sec)
