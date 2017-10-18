@@ -1,0 +1,52 @@
+実施者：玉利仁美
+実施日：2017年10月11日
+
+    問4
+    employeeのdepart_idの後方にemail列(VARCHAR(255)型)を追加するSQL命令の誤りを2点指摘しなさい。
+    
+    問題
+    ALTER TABLE
+       employee
+    ADD TO
+       email VARCHAR(255) NOT NULL
+    BEFORE
+       depart_id
+    ;
+    
+    解答
+        ①ADD TO → ADDに修正
+          追加する際はADDで指定するため
+        ②BEFORE → AFTERに修正
+          問題文の指定ではdepart_idの後方に入れなければならないのでAFTERに直す
+          そもそもBEFOREという指定はできない
+    実行文
+    ALTER TABLE                                -- 既存のテーブルに新しく列を追加したいので宣言する
+       employee                                -- 問題文の指定では、employeeテーブルに列を追加するのでemployeeテーブルを指定
+    ADD                                        -- email列を追加したいので宣言
+       email VARCHAR(255) NOT NULL             -- email列を指定の通り255桁の文字列かつNULLを許さず生成する
+    AFTER                                      -- 問題文の指定のとおりdepart_idの後方になるようにするため宣言
+       depart_id                               -- depart_idの後方に来るよう列を指定する
+    ;                                          -- 命令を終了させる
+        
+   実行結果表示命令文
+   
+   SHOW COLUMNS FROM employee -- depart_idの後方にemail列が挿入されているか確認するためすべてのコラムを表示させる
+        ;                     -- 命令を終了させる
+   実行結果
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| s_id        | char(7)      | NO   | PRI |         |       |
+| l_name      | varchar(20)  | YES  |     | NULL    |       |
+| f_name      | varchar(20)  | YES  |     | NULL    |       |
+| l_name_kana | varchar(100) | YES  |     | NULL    |       |
+| f_name_kana | varchar(100) | YES  |     | NULL    |       |
+| sex         | smallint(6)  | YES  |     | NULL    |       |
+| class       | varchar(20)  | YES  |     | NULL    |       |
+| depart_id   | char(3)      | YES  |     | NULL    |       |
+| email       | varchar(255) | NO   |     | NULL    |       |
+| b_id        | char(7)      | YES  |     | NULL    |       |
+| last_update | date         | YES  |     | NULL    |       |
+| retired     | smallint(6)  | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+12 rows in set (0.01 sec)
